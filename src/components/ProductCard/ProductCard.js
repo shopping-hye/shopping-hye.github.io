@@ -9,12 +9,12 @@ export class ProductCard extends React.Component {
 		super(props);
 	}
 
-	handleMouseMove = event => {
+	handleMouseMove = (event) => {
 		if (event.type === 'mouseenter') {
-			console.log(`you moved in ${name} at: ${new Date().toLocaleTimeString()}`)
+			console.log(`you moved in ${this.props.name} at: ${new Date().toLocaleTimeString()}`)
 		}
 		if (event.type === 'mouseleave') {
-			console.log(`you moved out ${name} at: ${new Date().toLocaleTimeString()}`)
+			console.log(`you moved out ${this.props.name} at: ${new Date().toLocaleTimeString()}`)
 		}
 	}
 
