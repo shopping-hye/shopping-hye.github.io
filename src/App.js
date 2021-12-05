@@ -86,7 +86,7 @@ class App extends Component {
           <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item onClick={this.showProductCards}><a>Home</a></Breadcrumb.Item>
-              <Breadcrumb.Item>{window.location.pathname.substr(1)}</Breadcrumb.Item>
+              <Breadcrumb.Item>{window.location.pathname.substr(1) === 'hye/' ? '' : window.location.pathname.substr(1)}</Breadcrumb.Item>
             </Breadcrumb>
             <Content
               className="site-layout-background"
