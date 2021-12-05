@@ -9,11 +9,18 @@ const { Meta } = Card;
 
 export class ProductCard extends React.Component {
 	handleMouseMove = (event) => {
+		const { data, index, products, prices } = this.props;
 		if (event.type === 'mouseenter') {
-			console.log(`you moved in ${this.props.name} at: ${new Date().toLocaleTimeString()}`)
+			let now = Date.now();
+			let product_card = 'product_cards_' + products[index] + '_' + prices[index];
+			data[product_card].push(now);
+			console.log(`Moved in ${product_card} at: ${new Date(now).toLocaleString()}`)
 		}
 		if (event.type === 'mouseleave') {
-			console.log(`you moved out ${this.props.name} at: ${new Date().toLocaleTimeString()}`)
+			let now = Date.now();
+			let product_card = 'product_cards_' + products[index] + '_' + prices[index];
+			data[product_card].push(now);
+			console.log(`Moved out ${product_card} at: ${new Date(now).toLocaleString()}`)
 		}
 	}
 

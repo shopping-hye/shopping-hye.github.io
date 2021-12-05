@@ -13,10 +13,16 @@ const data = {};
 	for(let i = 0; i < 3; i++) {
 		data.version.push(products[i] + '-' + prices[i]);
 	}
-	data.testing_time = new Date().toLocaleString();
+	data.loading_time = new Date().toLocaleString();
+	for(let i = 0; i < 3; i++) {
+		data['product_cards_' + products[i] + '_' + prices[i]] = [];
+		data['product_details_image_' + products[i] + '_' + prices[i]] = [];
+		data['product_details_tile_description_' + products[i] + '_' + prices[i]] = [];
+		data['product_details_price_' + products[i] + '_' + prices[i]] = [];
+	}
 })()
 
-console.log(`App meta data: ${JSON.stringify(data)}`);
+console.info(`App meta data: ${JSON.stringify(data, null, 2)}`);
 
 function shuffleArray(array) {
 	for (let i = array.length - 1; i > 0; i--) {

@@ -14,15 +14,6 @@ class App extends Component {
     this.state = {showProductCards: true};
   }
 
-  handleMouseMove = event => {
-    if (event.type === 'mouseover') {
-      console.log(`you moved in ${name} at: ${new Date()}`)
-    }
-    if (event.type === 'mouseout') {
-      console.log(`you moved out ${name} at: ${new Date()}`)
-    }
-  }
-
   hideProductCards = () => {
     this.setState({
       showProductCards: false
@@ -37,7 +28,7 @@ class App extends Component {
 
 
   render() {
-    // const data = this.props.data;
+    const data = this.props.data;
     let path;
     if (this.state.showProductCards) {
       path  = '';
@@ -51,6 +42,7 @@ class App extends Component {
         <Col span={6} onClick={this.hideProductCards}>
           <Link to="/0" >
             <ProductCard
+              data={data}
               index={0}
               products={products}
               prices={prices}/>
@@ -59,6 +51,7 @@ class App extends Component {
         <Col span={6} onClick={this.hideProductCards}>
           <Link to="/1">
             <ProductCard
+              data={data}
               index={1}
               products={products}
               prices={prices}/>
@@ -67,6 +60,7 @@ class App extends Component {
         <Col span={6} onClick={this.hideProductCards}>
           <Link to="/2">
             <ProductCard
+              data={data}
               index={2}
               products={products}
               prices={prices}/>
@@ -111,9 +105,9 @@ class App extends Component {
               }}
             >
               { this.state.showProductCards ? <ProductCards /> : null }
-              { this.state.showProductCards ? null : <Route path="/0" ><ProductDetails products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
-              { this.state.showProductCards ? null : <Route path="/1" ><ProductDetails products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
-              { this.state.showProductCards ? null : <Route path="/2" ><ProductDetails products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
+              { this.state.showProductCards ? null : <Route path="/0" ><ProductDetails data={data} index={0} products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
+              { this.state.showProductCards ? null : <Route path="/1" ><ProductDetails data={data} index={1} products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
+              { this.state.showProductCards ? null : <Route path="/2" ><ProductDetails data={data} index={2} products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
             </Content>
           </Layout>
         </Layout>
