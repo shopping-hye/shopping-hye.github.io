@@ -18,9 +18,9 @@ export class ProductCard extends React.Component {
 	}
 
 	render() {
-		const { productId, priceId } = this.props;
-		const productImageUri = getProductImageUri(productId);
-		const priceImageUri = getPriceImageUri(priceId);
+		const { index, products, prices } = this.props;
+		const productImageUri = getProductImageUri(products[index]);
+		const priceImageUri = getPriceImageUri(prices[index]);
 
 		return (
 			<div
@@ -34,7 +34,7 @@ export class ProductCard extends React.Component {
 					<Row gutter={20}>
 						<Col span={14}>
 							<Meta
-								title={name} description={productsConfig[productId].name} />
+								title={name} description={productsConfig[index].name} />
 						</Col>
 						<Col span={6}>
 							<img style={{

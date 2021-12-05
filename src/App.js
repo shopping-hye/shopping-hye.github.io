@@ -38,6 +38,12 @@ class App extends Component {
 
   render() {
     // const data = this.props.data;
+    let path;
+    if (this.state.showProductCards) {
+      path  = '';
+    } else {
+      path = window.location.pathname.substr(1);
+    }
     const products = this.props.products;
     const prices = this.props.prices;
     const ProductCards = () => (
@@ -45,22 +51,25 @@ class App extends Component {
         <Col span={6} onClick={this.hideProductCards}>
           <Link to="/0" >
             <ProductCard
-              productId={products[0]}
-              priceId={prices[0]}/>
+              index={0}
+              products={products}
+              prices={prices}/>
           </Link>
         </Col>
         <Col span={6} onClick={this.hideProductCards}>
           <Link to="/1">
             <ProductCard
-              productId={products[1]}
-              priceId={prices[1]}/>
+              index={1}
+              products={products}
+              prices={prices}/>
           </Link>
         </Col>
         <Col span={6} onClick={this.hideProductCards}>
           <Link to="/2">
             <ProductCard
-              productId={products[2]}
-              priceId={prices[2]}/>
+              index={2}
+              products={products}
+              prices={prices}/>
           </Link>
         </Col>
       </Row>
@@ -87,8 +96,10 @@ class App extends Component {
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item onClick={this.showProductCards}><a>Home</a></Breadcrumb.Item>
-              <Breadcrumb.Item>{window.location.pathname.substr(1) === 'hye' ? '' : window.location.pathname.substr(1)}</Breadcrumb.Item>
+              <Breadcrumb.Item onClick={this.showProductCards}>
+                <Link to="/" >Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>{path}</Breadcrumb.Item>
             </Breadcrumb>
             <Content
               className="site-layout-background"
