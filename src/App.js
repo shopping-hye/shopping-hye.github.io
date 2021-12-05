@@ -7,7 +7,6 @@ import { ProductCard } from './components/ProductCard/ProductCard'
 import { Col, Row } from 'antd';
 const { Header, Content, Sider } = Layout;
 import { Route, Link } from "react-router-dom";
-import logo from '../public/logo.png';
 
 class App extends Component {
   constructor(props) {
@@ -70,12 +69,15 @@ class App extends Component {
       <Layout>
         <Header className='shopping-header'>
           <Link to="/" onClick={this.showProductCards}>
-            <img alt="logo" className="logo" src={logo} />
+            <h1 style={{
+              color: "#fadb14"
+            }}>Hye</h1>
           </Link>
         </Header>
         <Layout>
           <Sider width={200} className="site-layout-background">
             <Menu
+              theme="light"
               mode="inline"
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
@@ -86,7 +88,7 @@ class App extends Component {
           <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item onClick={this.showProductCards}><a>Home</a></Breadcrumb.Item>
-              <Breadcrumb.Item>{window.location.pathname.substr(1) === 'hye/' ? '' : window.location.pathname.substr(1)}</Breadcrumb.Item>
+              <Breadcrumb.Item>{window.location.pathname.substr(1) === 'hye' ? '' : window.location.pathname.substr(1)}</Breadcrumb.Item>
             </Breadcrumb>
             <Content
               className="site-layout-background"
