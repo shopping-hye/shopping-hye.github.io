@@ -1,6 +1,6 @@
 # Hye
 
-Frontend: https://shopping-hye.github.io/hye/
+Frontend: https://shopping-hye.github.io
 Backend: https://j3uvhhijq0.execute-api.us-east-1.amazonaws.com/api/hye
 
 ### Key Points
