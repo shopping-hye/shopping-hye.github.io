@@ -8,10 +8,6 @@ import { products as productsConfig } from '../../product_config.json';
 const { Meta } = Card;
 
 export class ProductCard extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	handleMouseMove = (event) => {
 		if (event.type === 'mouseenter') {
 			console.log(`you moved in ${this.props.name} at: ${new Date().toLocaleTimeString()}`)
@@ -33,7 +29,7 @@ export class ProductCard extends React.Component {
 				onMouseLeave={this.handleMouseMove}>
 				<Card
 					hoverable
-					cover={<img alt="product image" src={productImageUri} />}
+					cover={<img src={productImageUri} />}
 				>
 					<Row gutter={20}>
 						<Col span={14}>
@@ -49,7 +45,7 @@ export class ProductCard extends React.Component {
 								right: 0,
 								bottom: 0,
 								left: 0,
-							}} alt="product image" src={priceImageUri} />
+							}} src={priceImageUri} />
 						</Col>
 					</Row>
 				</Card>

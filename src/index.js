@@ -29,10 +29,8 @@ function shuffleArray(array) {
 }
 
 ReactDOM.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<App data={data} products={products} prices={prices}/>
-		</BrowserRouter>
-	</React.StrictMode>,
+	<BrowserRouter>
+		<App data={data} products={products} prices={prices}/>
+	</BrowserRouter>,
   document.getElementById('root')
 );

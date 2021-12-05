@@ -8,10 +8,6 @@ import { getPriceImageUri, getProductImageUri } from "../utils";
 import { products as productsConfig } from '../../product_config.json';
 
 export class ProductDetails extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 
 	render() {
 		const path = Number(window.location.pathname.substr(1));
@@ -32,7 +28,8 @@ export class ProductDetails extends React.Component {
 						{productsConfig[path].name}
 					</h1>
 					<div>
-						<img style={{
+						<img
+							style={{
 							height: '150px',
 							width: '400px'
 						}}
