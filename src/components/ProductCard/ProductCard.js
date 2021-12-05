@@ -1,6 +1,9 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Card } from 'antd';
+import { Card, Row, Col} from 'antd';
+import './ProductCard.css';
+import { getProductImageUri, getPriceImageUri } from '../utils'
+import { products as productsConfig } from '../../product_config.json';
 
 const { Meta } = Card;
 
@@ -19,15 +22,36 @@ export class ProductCard extends React.Component {
 	}
 
 	render() {
-		const { name, imageUri, description } = this.props;
+		const { productId, priceId } = this.props;
+		const productImageUri = getProductImageUri(productId);
+		const priceImageUri = getPriceImageUri(priceId);
+
 		return (
-			<div onMouseEnter={this.handleMouseMove}
-					 onMouseLeave={this.handleMouseMove}>
+			<div
+				className="product-card"
+				onMouseEnter={this.handleMouseMove}
+				onMouseLeave={this.handleMouseMove}>
 				<Card
 					hoverable
-					cover={<img alt="example" src={imageUri} />}
+					cover={<img alt="product image" src={productImageUri} />}
 				>
-					<Meta title={name} description={description} />
+					<Row gutter={20}>
+						<Col span={14}>
+							<Meta
+								title={name} description={productsConfig[productId].name} />
+						</Col>
+						<Col span={6}>
+							<img style={{
+								position: "absolute",
+								width: 140,
+								height: 60,
+								top: 0,
+								right: 0,
+								bottom: 0,
+								left: 0,
+							}} alt="product image" src={priceImageUri} />
+						</Col>
+					</Row>
 				</Card>
 			</div>
 		)

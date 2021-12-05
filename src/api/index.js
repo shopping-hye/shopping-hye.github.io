@@ -1,18 +1,16 @@
 import axios from 'axios'
-const slackUrl = 'https://hooks.slack.com/services/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';
+const endpoint = 'https://j3uvhhijq0.execute-api.us-east-1.amazonaws.com/api/clarksonedu-hye';
 
-//axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-
-export async function readGoogleSheet() {
+export async function checkout() {
 	console.log(`reading data`);
 	let config = {
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 		}
 	}
 
-	const article = { title: 'React POST Request Example' };
-	await axios.post(slackUrl, article).then(res => {
+	const article = { user_id: 'us', checkout_time: 121212 };
+	await axios.post(endpoint, article, config).then(res => {
 		console.log(res)
 	})
 }

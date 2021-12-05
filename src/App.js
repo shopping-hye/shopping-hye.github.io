@@ -1,36 +1,77 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import { grey } from '@ant-design/colors';
-import { ProductDescription } from './components/ProductDescription/ProductDescription'
+import { ProductDetails } from './components/ProductDetails/ProductDetails'
 import { ProductCard } from './components/ProductCard/ProductCard'
 import { Col, Row } from 'antd';
-
-const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
+import { Routes, Route, Link } from "react-router-dom";
+import logo from '../public/logo.png';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {showProductCards: true};
+  }
+
   handleMouseMove = event => {
     if (event.type === 'mouseover') {
-      console.log(`you moved in ${name} at: ${new Date().toLocaleTimeString()}`)
+      console.log(`you moved in ${name} at: ${new Date()}`)
     }
     if (event.type === 'mouseout') {
-      console.log(`you moved out ${name} at: ${new Date().toLocaleTimeString()}`)
+      console.log(`you moved out ${name} at: ${new Date()}`)
     }
   }
 
+  hideProductCards = () => {
+    this.setState({
+      showProductCards: false
+    })
+  }
+
+  showProductCards = () => {
+    this.setState({
+      showProductCards: true
+    })
+  }
+
+
   render() {
+    const data = this.props.data;
+    const products = this.props.products;
+    const prices = this.props.prices;
+    const ProductCards = () => (
+      <Row gutter={24}>
+        <Col span={6} onClick={this.hideProductCards}>
+          <Link to="0" >
+            <ProductCard
+              productId={products[0]}
+              priceId={prices[0]}/>
+          </Link>
+        </Col>
+        <Col span={6} onClick={this.hideProductCards}>
+          <Link to="1">
+            <ProductCard
+              productId={products[1]}
+              priceId={prices[1]}/>
+          </Link>
+        </Col>
+        <Col span={6} onClick={this.hideProductCards}>
+          <Link to="2">
+            <ProductCard
+              productId={products[2]}
+              priceId={prices[2]}/>
+          </Link>
+        </Col>
+      </Row>
+    )
     return (
       <Layout>
-        <Header className="header">
-          <div className="logo"/>
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
+        <Header className='shopping-header'>
+          <Link to="/" onClick={this.showProductCards}>
+            <img className="logo" src={logo} />
+          </Link>
         </Header>
         <Layout>
           <Sider width={200} className="site-layout-background">
@@ -40,31 +81,14 @@ class App extends Component {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-              <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                <Menu.Item key="1">option1</Menu.Item>
-                <Menu.Item key="2">option2</Menu.Item>
-                <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                <Menu.Item key="5">option5</Menu.Item>
-                <Menu.Item key="6">option6</Menu.Item>
-                <Menu.Item key="7">option7</Menu.Item>
-                <Menu.Item key="8">option8</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                <Menu.Item key="9">option9</Menu.Item>
-                <Menu.Item key="10">option10</Menu.Item>
-                <Menu.Item key="11">option11</Menu.Item>
-                <Menu.Item key="12">option12</Menu.Item>
-              </SubMenu>
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
+              <Link to="/" onClick={this.showProductCards}>
+                <Breadcrumb.Item onClick={this.showProductCards}>Home</Breadcrumb.Item>
+              </Link>
+              <Breadcrumb.Item>{window.location.pathname.substr(1)}</Breadcrumb.Item>
             </Breadcrumb>
             <Content
               className="site-layout-background"
@@ -75,26 +99,12 @@ class App extends Component {
                 backgroundColor: '#ffffff'
               }}
             >
-              <Row gutter={16}>
-                <Col span={5}>
-                  <ProductCard
-                    name={'coffee machine'}
-                    imageUri={'https://www.techinn.com/f/13774/137743100/philips-ep2235-espresso-coffee-machine.jpg'}
-                    description={'a machine used to make coffee automatically'}/>
-                </Col>
-                <Col span={5}>
-                  <ProductCard
-                    name={'toaster'}
-                    imageUri={'https://target.scene7.com/is/image/Target/GUEST_d8a811c3-5f0a-4131-8abf-8dfca482136f?wid=488&hei=488&fmt=pjpeg'}
-                    description={'a toast machine for your everyday breakfast'}/>
-                </Col>
-                <Col span={5}>
-                  <ProductCard
-                    name={'fry pan'}
-                    imageUri={'https://catalog.carlislefsp.com/images/1600x1600/332285.jpg'}
-                    description={'a must have pan in your kitchen'}/>
-                </Col>
-              </Row>
+              { this.state.showProductCards ? <ProductCards /> : null}
+              <Routes>
+                { this.state.showProductCards ? null : <Route path="0" element={<ProductDetails products={products} prices={prices} showProductCards={this.showProductCards} />} />}
+                { this.state.showProductCards ? null : <Route path="1" element={<ProductDetails products={products} prices={prices} showProductCards={this.showProductCards} />} />}
+                { this.state.showProductCards ? null : <Route path="2" element={<ProductDetails products={products} prices={prices} showProductCards={this.showProductCards} />} />}
+              </Routes>
             </Content>
           </Layout>
         </Layout>
