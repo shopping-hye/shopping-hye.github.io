@@ -8,19 +8,17 @@ import { products as productsConfig } from '../../product_config.json';
 const { Meta } = Card;
 
 export class ProductCard extends React.Component {
-	handleMouseMove = (event) => {
+	handleMouseMoveCardWhole = (event) => {
 		const { data, index, products, prices } = this.props;
+		const wholeKey = 'product_cards_whole_' + products[index] + '_' + prices[index];
+		const now = Date.now();
 		if (event.type === 'mouseenter') {
-			let now = Date.now();
-			let product_card = 'product_cards_' + products[index] + '_' + prices[index];
-			data[product_card].push(now);
-			console.log(`Moved in ${product_card} at: ${new Date(now).toLocaleString()}`)
+			data[wholeKey].push(now + '-in');
+			console.log(`Moved in ${wholeKey} at: ${new Date(now).toLocaleString()}`)
 		}
 		if (event.type === 'mouseleave') {
-			let now = Date.now();
-			let product_card = 'product_cards_' + products[index] + '_' + prices[index];
-			data[product_card].push(now);
-			console.log(`Moved out ${product_card} at: ${new Date(now).toLocaleString()}`)
+			data[wholeKey].push(now + '-out');
+			console.log(`Moved out ${wholeKey} at: ${new Date(now).toLocaleString()}`)
 		}
 	}
 
@@ -32,8 +30,8 @@ export class ProductCard extends React.Component {
 		return (
 			<div
 				className="product-card"
-				onMouseEnter={this.handleMouseMove}
-				onMouseLeave={this.handleMouseMove}>
+				onMouseEnter={this.handleMouseMoveCardWhole}
+				onMouseLeave={this.handleMouseMoveCardWhole}>
 				<Card
 					hoverable
 					cover={<img src={productImageUri} />}
@@ -45,13 +43,8 @@ export class ProductCard extends React.Component {
 						</Col>
 						<Col span={6}>
 							<img style={{
-								position: "absolute",
-								width: 140,
-								height: 60,
-								top: 0,
-								right: 0,
-								bottom: 0,
-								left: 0,
+								width: '210px',
+								height: '70px'
 							}} src={priceImageUri} />
 						</Col>
 					</Row>

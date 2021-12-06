@@ -5,24 +5,25 @@ import 'antd/dist/antd.css';
 import { ProductDetails } from './components/ProductDetails/ProductDetails'
 import { ProductCard } from './components/ProductCard/ProductCard'
 import { Col, Row } from 'antd';
-const { Header, Content, Sider } = Layout;
-import { Route, Link } from "react-router-dom";
+const { Header, Content } = Layout;
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {showProductCards: true};
+    this.state = {
+      showProductCards: true,
+      showProductDetails0: false,
+      showProductDetails1: false,
+      showProductDetails2: false
+    };
   }
 
-  hideProductCards = () => {
+  backToMainPage = () => {
     this.setState({
-      showProductCards: false
-    })
-  }
-
-  showProductCards = () => {
-    this.setState({
-      showProductCards: true
+      showProductCards: true,
+      showProductDetails0: false,
+      showProductDetails1: false,
+      showProductDetails2: false
     })
   }
 
@@ -32,66 +33,81 @@ class App extends Component {
     let path;
     if (this.state.showProductCards) {
       path  = '';
+    } else if (this.state.showProductDetails0) {
+      path = 'product_0';
+    } else if (this.state.showProductDetails1) {
+      path = 'product_1';
     } else {
-      path = window.location.pathname.substr(1);
+      path = 'product_2';
     }
     const products = this.props.products;
     const prices = this.props.prices;
     const ProductCards = () => (
       <Row gutter={24}>
-        <Col span={6} onClick={this.hideProductCards}>
-          <Link to="/0" >
+        <Col span={8} onClick={() => {
+          this.setState({
+            showProductCards: false,
+            showProductDetails0: true,
+            showProductDetails1: false,
+            showProductDetails2: false
+          })
+        }}>
+          <a>
             <ProductCard
               data={data}
               index={0}
               products={products}
               prices={prices}/>
-          </Link>
+          </a>
         </Col>
-        <Col span={6} onClick={this.hideProductCards}>
-          <Link to="/1">
+        <Col span={8} onClick={() => {
+          this.setState({
+            showProductCards: false,
+            showProductDetails0: false,
+            showProductDetails1: true,
+            showProductDetails2: false
+          })
+        }}>
+          <a>
             <ProductCard
               data={data}
               index={1}
               products={products}
               prices={prices}/>
-          </Link>
+          </a>
         </Col>
-        <Col span={6} onClick={this.hideProductCards}>
-          <Link to="/2">
+        <Col span={8} onClick={() => {
+          this.setState({
+            showProductCards: false,
+            showProductDetails0: false,
+            showProductDetails1: false,
+            showProductDetails2: true
+          })
+        }}>
+          <a>
             <ProductCard
               data={data}
               index={2}
               products={products}
               prices={prices}/>
-          </Link>
+          </a>
         </Col>
       </Row>
     )
     return (
       <Layout>
         <Header className='shopping-header'>
-          <Link to="/" onClick={this.showProductCards}>
+          <a to="/" onClick={this.backToMainPage}>
             <h1 style={{
               color: "#fadb14"
-            }}>Hye</h1>
-          </Link>
+            }}>Shopping</h1>
+          </a>
         </Header>
         <Layout>
-          <Sider width={200} className="site-layout-background">
-            <Menu
-              theme="light"
-              mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
-              style={{ height: '100%', borderRight: 0 }}
-            >
-            </Menu>
-          </Sider>
-          <Layout style={{ padding: '0 24px 24px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item onClick={this.showProductCards}>
-                <Link to="/" >Home</Link>
+          <Layout>
+            <Breadcrumb style={{ margin: '16px 0', padding: '0 24px 0 24px' }}>
+              <Breadcrumb.Item onClick={this.backToMainPage}>
+                <a to="/" >Home</a>
               </Breadcrumb.Item>
               <Breadcrumb.Item>{path}</Breadcrumb.Item>
             </Breadcrumb>
@@ -105,9 +121,9 @@ class App extends Component {
               }}
             >
               { this.state.showProductCards ? <ProductCards /> : null }
-              { this.state.showProductCards ? null : <Route path="/0" ><ProductDetails data={data} index={0} products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
-              { this.state.showProductCards ? null : <Route path="/1" ><ProductDetails data={data} index={1} products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
-              { this.state.showProductCards ? null : <Route path="/2" ><ProductDetails data={data} index={2} products={products} prices={prices} showProductCards={this.showProductCards} /></Route> }
+              { this.state.showProductDetails0 ? <ProductDetails data={data} index={0} products={products} prices={prices} backToMainPage={this.backToMainPage} /> : null }
+              { this.state.showProductDetails1 ? <ProductDetails data={data} index={1} products={products} prices={prices} backToMainPage={this.backToMainPage} /> : null }
+              { this.state.showProductDetails2 ? <ProductDetails data={data} index={2} products={products} prices={prices} backToMainPage={this.backToMainPage} /> : null }
             </Content>
           </Layout>
         </Layout>
