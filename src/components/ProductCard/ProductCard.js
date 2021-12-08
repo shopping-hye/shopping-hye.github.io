@@ -22,6 +22,21 @@ export class ProductCard extends React.Component {
 		}
 	}
 
+	handleMouseMoveCardImage = (event) => {
+		const { data, index, products, prices } = this.props;
+		const cardKey = 'product_cards_price_' + products[index] + '_' + prices[index];
+		const now = Date.now();
+		if (event.type === 'mouseenter') {
+			data[cardKey].push(now + '-in');
+			console.log(`Moved in ${cardKey} at: ${new Date(now).toLocaleString()}`)
+		}
+		if (event.type === 'mouseleave') {
+			data[cardKey].push(now + '-out');
+			console.log(`Moved out ${cardKey} at: ${new Date(now).toLocaleString()}`)
+		}
+	}
+
+
 	render() {
 		const { index, products, prices } = this.props;
 		const productImageUri = getProductImageUri(products[index]);
@@ -42,7 +57,10 @@ export class ProductCard extends React.Component {
 								title={name} description={productsConfig[index].name} />
 						</Col>
 						<Col span={6}>
-							<img style={{
+							<img
+								onMouseEnter={this.handleMouseMoveCardImage}
+								onMouseLeave={this.handleMouseMoveCardImage}
+								style={{
 								width: '210px',
 								height: '70px'
 							}} src={priceImageUri} />
