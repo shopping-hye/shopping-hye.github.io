@@ -7,12 +7,11 @@ Backend: [https://j3uvhhijq0.execute-api.us-east-1.amazonaws.com/api/hye](https:
 1. Products and prices images are in `public` folder.
 2. Products meta data are configured in `src/product_config.json`.
 3. When user opens the page, they should see a randomized view based on the `product` and `price` match.
-4. The user activity is tracked from the retention period in each UI section.
-5. When checkout, the user should obtain a testing ID (it can be formed using the view version).
+4. The user activity is tracked from the mouse **move in** and **move out** epoch timestamp in each UI section.
+5. When checkout, the user should obtain a testing ID like `011220q3fx0s`, it is `version` and `session_id` combination.
+6. The user should not allow to refresh the page, even if it is to do so, will also post the already filled data to API.
 
 ### Backend Data Structure
-**Note**: the user will see a testing ID when check out like `011220q3fx0s`, it is `version` and `session_id` combination.
-
 ```json5
 {
 	"checkout_item": "20", // user checked out product & price combination, here means checked out product 2 and price 0.
