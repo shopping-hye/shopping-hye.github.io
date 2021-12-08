@@ -24,13 +24,13 @@ export class ProductDetails extends React.Component {
 		// save to api
 		console.log(`Submitting the data: ${JSON.stringify(data, null, 2)}`);
 		post(data, true).then(res => {}).catch(err => {
-			console.log('failed to save the data')
+			console.log('failed to save the data', err)
 		});
 	}
 
 	copyTestingId() {
-		let na = navigator.clipboard.writeText(this.props.data.version + this.props.data.user_id)
-			.then(res => console.log(`${this.props.data.version + this.props.data.user_id} copied`))
+		navigator.clipboard.writeText(this.props.data.version + this.props.data.session_id)
+			.then(res => console.log(`${this.props.data.version + this.props.data.session_id} copied`))
 			.catch(err => console.log(err))
 
 		this.setState({
@@ -80,7 +80,7 @@ export class ProductDetails extends React.Component {
 							cancelButtonProps={{disabled: true}}
 							okText={this.state.okText}
 						>
-							<p>Click the button to copy your testing ID and enter it back in the Qualtrics. Your testing ID is: <strong>{data.version + data.user_id}</strong></p>
+							<p>Click the button to copy your testing ID and enter it back in the Qualtrics. Your testing ID is: <strong>{data.version + data.session_id}</strong></p>
 						</Modal>
 					</Space>
 				</Col>
